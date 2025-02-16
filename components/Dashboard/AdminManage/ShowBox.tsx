@@ -9,7 +9,7 @@ interface ShowBoxProps {
 
 const ShowBox: React.FC<ShowBoxProps> = ({ title, children, onClose, actionButtons }) => {
   const [isMinimized, setIsMinimized] = useState(false); // Track whether the box is minimized
-
+  
   // Toggle minimize and maximize
   const toggleMinimize = () => {
     setIsMinimized((prev) => !prev);

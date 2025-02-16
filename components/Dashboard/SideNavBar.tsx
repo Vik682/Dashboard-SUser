@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 // Define types for the Button component props
 interface ButtonProps {
@@ -28,8 +29,14 @@ const SideNavBar: React.FC = () => {
 
   return (
     <div className="fixed top-0 left-0 w-48 bg-white text-black h-screen flex flex-col shadow-md z-40">
-      <div className="flex items-center justify-center p-3 bg-white-200 border-b border-gray-300">
-        <img src="https://cdn.pixabay.com/photo/2016/12/27/13/10/logo-1933884_640.png" alt="Logo" className="w-12 h-12 rounded-full object-cover" />
+      <div className="flex items-center justify-center p-3 py-4 bg-white-200 border-b border-gray-300">
+      <Image
+            src="/images/profile.webp" // Replace with your profile picture URL
+            alt="Profile"
+            width={40}  // Specify the width of the image (in pixels)
+            height={40} // Specify the height of the image (in pixels)
+            className="w-10 h-10 rounded-full border-2 border-gray-300"
+          />
       </div>
       <div className="text-black w-full text-sm p-3 bg-gray-200 border-b border-gray-300">Modules</div>
       <div className="flex-1 overflow-y-auto p-3">

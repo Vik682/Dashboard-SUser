@@ -6,8 +6,8 @@ import ProfileWindow from './ShowBox.tsx'; // Import ProfileWindow
 import SearchAndPagination from './SearchAndPagination'; // Import your SearchAndPagination component
 
 const AdminManage = () => {
-  const [users, setUsers] = useState<any[]>([]); // Users data
-  const [selectedUser, setSelectedUser] = useState<any | null>(null); // Selected user for profile details
+  const [users, setUsers] = useState<unknown[]>([]); // Users data
+  const [selectedUser, setSelectedUser] = useState<unknown | null>(null); // Selected user for profile details
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const [itemsPerPage] = useState<number>(10); // Default items per page
   const [searchTerm, setSearchTerm] = useState<string>(''); // Search term for filtering
@@ -46,7 +46,7 @@ const AdminManage = () => {
   );
 
   // Handle user selection
-  const handleUserClick = (user: any) => {
+  const handleUserClick = (user: unknown) => {
     setSelectedUser(user); // Set the clicked user's profile
   };
 
