@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminManage from '@/components/DashBoard/AdminManage/AdminManage'
+import AdminManage from '@/components/Dashboard/AdminManage/AdminManage'
 const page = () => {
   return (
    <AdminManage/>

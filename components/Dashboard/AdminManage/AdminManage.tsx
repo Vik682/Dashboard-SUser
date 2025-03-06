@@ -1,29 +1,18 @@
 // AdminManage.tsx
 "use client";
-import React, { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa'; // Search icon for search bar
-import ProfileWindow from './ShowBox.tsx'; // Import ProfileWindow
-import SearchAndPagination from './SearchAndPagination'; // Import your SearchAndPagination component
+import React, { useState, useEffect } from "react";
+import { FaSearch } from "react-icons/fa"; // Search icon for search bar
+import ProfileWindow from "./ShowBox"; // Import ProfileWindow
+import SearchAndPagination from "./SearchAndPagination"; // Import your SearchAndPagination component
+import { sampleUsers } from "@/app/api/data/data";
 
 const AdminManage = () => {
-  const [users, setUsers] = useState<unknown[]>([]); // Users data
-  const [selectedUser, setSelectedUser] = useState<unknown | null>(null); // Selected user for profile details
+  const [users, setUsers] = useState<any[]>([]); // Users data
+  const [selectedUser, setSelectedUser] = useState<any | null>(null); // Selected user for profile details
   const [loading, setLoading] = useState<boolean>(false); // Loading state
-  const [itemsPerPage] = useState<number>(10); // Default items per page
-  const [searchTerm, setSearchTerm] = useState<string>(''); // Search term for filtering
-
-  const sampleUsers = [
-    { id: 1, name: "John Doe", email: "johndoe@example.com"},
-    { id: 2, name: "Jane Smith", email: "janesmith@example.com"},
-    { id: 3, name: "Samuel Green", email: "samuelgreen@example.com" },
-    { id: 4, name: "Lucy Brown", email: "lucybrown@example.com" },
-    { id: 5, name: "Michael White", email: "michaelwhite@example.com" },
-    { id: 6, name: "Emily Black", email: "emilyblack@example.com" },
-    { id: 7, name: "Daniel Yellow", email: "danielyellow@example.com" },
-    { id: 8, name: "Chris Blue", email: "chrisblue@example.com" },
-    { id: 9, name: "Patricia Red", email: "patriciared@example.com" },
-    { id: 10, name: "George Pink", email: "georgepink@example.com"},
-  ];
+  const [itemsPerPage, setItemPerPage] = useState<number>(5); // Default items per page
+  const [searchTerm, setSearchTerm] = useState<string>(""); // Search term for filtering
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false); // State for Add modal
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -31,7 +20,7 @@ const AdminManage = () => {
       try {
         setUsers(sampleUsers); // Use the sample data
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
       } finally {
         setLoading(false);
       }
@@ -40,13 +29,13 @@ const AdminManage = () => {
   }, []);
 
   const filteredUsers = users.filter(
-    (user) =>
+    (user: any) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Handle user selection
-  const handleUserClick = (user: unknown) => {
+  const handleUserClick = (user: any) => {
     setSelectedUser(user); // Set the clicked user's profile
   };
 
@@ -54,8 +43,28 @@ const AdminManage = () => {
   const renderUserDetails = () => {
     return (
       <ProfileWindow
-        user={selectedUser}
-        onClose={() => setSelectedUser(null)}
+        title={selectedUser.name}
+        children={<div>{/* Render user details here */}</div>}
+        onClose={() => {
+          setSelectedUser(null);
+        }}
+      />
+    );
+  };
+  // Handle Add button click
+  const handleAdd = () => {
+    setIsAddModalOpen(true); // Open the Add modal
+  };
+
+  // Render Add modal
+  const renderAddModal = () => {
+    return (
+      <ProfileWindow
+        title="Add New User"
+        children={<div>{/* Render form or content for adding a new user here */}</div>}
+        onClose={() => {
+          setIsAddModalOpen(false);
+        }}
       />
     );
   };
@@ -72,16 +81,24 @@ const AdminManage = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button className="ml-2 p-2 bg-blue-500 text-white rounded-md">
+          <div className="ml-2 p-2 bg-blue-500 text-white rounded-md">
             <FaSearch />
+          </div>
+        </div>
+        <div className="flex space-x-4">
+          <button
+            onClick={handleAdd}
+            className="p-2 bg-green-500 text-white rounded-md"
+          >
+            Add
           </button>
         </div>
       </div>
 
       {/* Search and Pagination Component */}
       <SearchAndPagination
+        initialItemsPerPage={itemsPerPage}
         items={filteredUsers}
-        itemsPerPage={itemsPerPage}
         onItemSelect={handleUserClick}
         renderItem={(user, index) => (
           <>
@@ -101,6 +118,9 @@ const AdminManage = () => {
 
       {/* User Profile Details */}
       {selectedUser && renderUserDetails()}
+
+      {/* Add New User Modal */}
+      {isAddModalOpen && renderAddModal()}
     </div>
   );
 };

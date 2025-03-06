@@ -20,7 +20,7 @@ const ShowBox: React.FC<ShowBoxProps> = ({ title, children, onClose, actionButto
       className={`fixed top-0 left-0 w-full h-full ${isMinimized ? 'bg-transparent' : 'bg-gray-600 bg-opacity-50'} flex items-center justify-center z-50`}
     >
       <div
-        className={`w-[80vw] ${isMinimized ? 'h-[50px]' : 'h-[80vh]'} mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col`}
+        className={`w-[80vw] ${isMinimized ? 'h-[50px] fixed top-[90vh]' : 'h-[80vh]'} mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col`}
       >
         {/* Blue Strip with Minimize and Close Icons */}
         <div className="bg-blue-600 text-white p-4 flex items-center justify-between relative">
